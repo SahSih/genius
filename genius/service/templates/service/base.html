@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> {% block title %}Service{% endblock%}</title>
+	<!-- Loads the path to static file-->
+	{% load staticfiles %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'service/style.css' %}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<!-- Logo - Nav Bar -->
+	<nav class = "navbar navbar-inverse">
+	<div class="container-fluid">
+
+		<div class = "navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="{% url 'service:index' %}"> Genius</a>
+		</div>
+
+		<!-- Individual items - Don's forget to make the class active -->
+		<div class="navbar-collapse collapse" id="topNavBar">
+
+			<ul class="nav navbar-nav">
+				<li class="">
+					<a href="{% url 'service:room' %}">
+						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp Rooms
+					</a>
+				</li>
+			</ul>
+
+			<form class="navbar-form navbar-left" role="search" method="get" action="#">
+				<div class="form-group">
+					<input type="text" class="form-control" name="q" value="">
+				</div>
+				<button type="submit" class="btn btn-default">Search</button>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="">
+					<a href="#">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Room
+					</a>
+				</li>
+				<li class="">
+					<a href="#">
+						<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp Log In
+					</a>
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+	</nav>
+
+<!-- block of code after nav bar -->
+{% block body %}
+{% endblock%}
+
+</body>
+</html>
