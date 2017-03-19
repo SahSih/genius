@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Room(models.Model):
 	title = models.CharField(max_length=200)
+	description = models.CharField(max_length=500, default="description")
 	price = models.IntegerField(default=0)
 	pub_date = models.DateTimeField(default=timezone.now)
 	room_photo = models.FileField()

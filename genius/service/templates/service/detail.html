@@ -1,0 +1,12 @@
+{% extends 'service/base.html' %}
+{% block questions_active %}active{% endblock %}
+
+{% block body %}
+	<img src="{{ room.room_photo.url }}" class="img-responsive">
+	<h2>{{ room.title }}</h2>
+		<ul>
+			<li>{{ room.description }}</li>
+			<li> Price: ${{ room.price }}</li>
+		</ul>
+
+{% endblock %}
