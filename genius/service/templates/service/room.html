@@ -1,8 +1,21 @@
 {% extends 'service/base.html' %}
 {% block title %}Room{% endblock %}
 {% block questions_active %}active{% endblock %}
+{% block addbar %}
+<li class="">
+	<a href="{% url 'service:room-add' %}">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Room
+	</a>
+</li>
+{% endblock %}
 
 {% block body %}
+<form class="navbar-form navbar-left" role="search" method="get" action= "#" enctype="multipart/form-data">
+	<div class="form-group">
+			<input type="text" class="form-control" name="q" value="">
+	</div>
+	<button type="submit" class="btn btn-default">Search Room</button>
+</form>
 	<div class="rooms-container container fluid">
 		<div class="row">
 			
