@@ -21,7 +21,3 @@ class Book(models.Model):
 	course = models.CharField(max_length=50)
 	price = models.IntegerField(default=0)
 	book_photo = models.FileField()
-
-	def __str__(self):
-		return self.title
-

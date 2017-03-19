@@ -2,11 +2,13 @@
 {% block title %}Textbook{% endblock %}
 {% block books_active %}active{% endblock %}
 {% block addbar %}
+{% if request.user.is_authenticated %}
 <li class="">
 	<a href="#">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Book
 	</a>
 </li>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -20,7 +22,7 @@
 		<div class="row">
 			
 		<div class="col-sm-12">
-			<h2> Books List</h2>
+			<h2 style="color:white;"> Books List</h2>
 		</div>
 
 		{% for books in all_books %}

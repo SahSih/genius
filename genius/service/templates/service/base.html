@@ -49,11 +49,25 @@
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Room
 					</a>
 				</li> -->
+				{% if request.user.is_authenticated %}
 				<li class="">
-					<a href="#">
+					<a href="{% url 'service:logout' %}">
+						<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp Log Out
+					</a>
+				</li>
+				{% else %}
+				<li class="">
+					<a href="{% url 'service:login' %}">
 						<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp Log In
 					</a>
 				</li>
+				<li class="">
+					<a href="{% url 'service:register' %}">
+						<span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>&nbsp Register
+					</a>
+				</li>
+				{% endif %}
+				
 			</ul>
 
 		</div>

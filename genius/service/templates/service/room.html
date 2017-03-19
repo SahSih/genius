@@ -2,11 +2,13 @@
 {% block title %}Room{% endblock %}
 {% block rooms_active %}active{% endblock %}
 {% block addbar %}
+{% if request.user.is_authenticated %}
 <li class="">
 	<a href="{% url 'service:room-add' %}">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Room
 	</a>
 </li>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -20,7 +22,7 @@
 		<div class="row">
 			
 		<div class="col-sm-12">
-			<h2> Rooms List</h2>
+			<h2 style="color:white;"> Rooms List</h2>
 		</div>
 
 		{% for room in all_rooms %}
