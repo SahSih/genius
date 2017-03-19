@@ -2,11 +2,11 @@
 {% block questions_active %}active{% endblock %}
 
 {% block body %}
-	<img src="{{ room.room_photo.url }}" class="img-responsive">
+	<img src="{{ book.book_photo.url }}" class="img-responsive">
 	<div class="description">
-		<h2>{{ room.title }}</h2>
+		<h2>{{ book.title }}</h2>
 			<ul>
-				<li>{{ room.description }}</li>
+				<li>{{ book.course }}</li>
 				<li> Price: ${{ room.price }}</li>
 			</ul>
 	</div>
