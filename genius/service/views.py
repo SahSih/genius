@@ -7,6 +7,8 @@ from .models import Room, Book
 from django.views.generic.edit import FormMixin
 from .forms import RoomSearch, BookSearch, UserForm, LoginForm
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 class IndexView(generic.TemplateView):
@@ -17,6 +19,7 @@ class RoomView(FormMixin, ListView):
 	template_name = 'service/room.html'
 	context_object_name = 'all_rooms'
 	form_class = RoomSearch
+	# all_users = User.objects.all()
 
 	def get_queryset(self):
 		query = self.request.GET.get('q')
@@ -26,6 +29,15 @@ class RoomView(FormMixin, ListView):
 			all_rooms = Room.objects.all()
 		return all_rooms
 
+# PersonalRooms shows specific rooms that authenticated user created
+class PersonalRoomView(ListView):
+	template_name = 'service/user-room.html'
+	context_object_name = 'all_rooms'
+
+	def get_queryset(self):
+		query = Room.objects.filter(user=self.request.user)
+		return query
+
 class DetailView(generic.DetailView):
 	model = Room
 	template_name = 'service/detail.html'
@@ -33,6 +45,15 @@ class DetailView(generic.DetailView):
 class RoomCreate(CreateView):
 	model = Room
 	fields = ['title', 'description', 'price' , 'room_photo']
+
+	def form_valid(self, form):
+		room = form.save(commit=False)
+		room.user = self.request.user
+		return super(RoomCreate, self).form_valid(form)
+
+class RoomDelete(DeleteView):
+	model = Room
+	success_url = reverse_lazy('service:personal-rooms')
 
 class BookView(FormMixin, ListView):
 	template_name = 'service/book.html'
@@ -46,6 +67,15 @@ class BookView(FormMixin, ListView):
 		else:
 			all_books = Book.objects.all()
 		return all_books
+
+class BookCreate(CreateView):
+	model = Book
+	fields = ['title', 'course', 'price' , 'book_photo']
+
+	def form_valid(self, form):
+		book = form.save(commit=False)
+		book.user = self.request.user
+		return super(BookCreate, self).form_valid(form)
 
 class BookDetailView(generic.DetailView):
 	model = Book

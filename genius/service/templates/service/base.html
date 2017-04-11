@@ -22,7 +22,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="{% url 'service:index' %}"> SpartanMart </a>
+		<a class="navbar-brand" href="{% url 'service:index' %}"> Genius </a>
 		</div>
 
 		<!-- Individual items - Don's forget to make the class active -->
@@ -50,6 +50,12 @@
 					</a>
 				</li> -->
 				{% if request.user.is_authenticated %}
+				<!-- Link to user's profile -->
+				<li class="">
+					<a href="{% url 'service:personal-rooms' %}">
+						<span class=" glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp hello {{request.user.username}}
+					</a>
+				</li>
 				<li class="">
 					<a href="{% url 'service:logout' %}">
 						<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp Log Out

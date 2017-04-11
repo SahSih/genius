@@ -4,7 +4,7 @@
 {% block addbar %}
 {% if request.user.is_authenticated %}
 <li class="">
-	<a href="#">
+	<a href="{% url 'service:book-add' %}">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Book
 	</a>
 </li>
@@ -25,7 +25,7 @@
 			<h2 style="color:white;"> Books List</h2>
 		</div>
 
-		{% for books in all_books %}
+		{% for book in all_books %}
 			<div class="col-sm-3">
 				<div class="thumbnail">
 
@@ -35,7 +35,8 @@
 
 					<div class ="caption">
 						<h3>{{ book.title }}</h3>
-						<a href="{% url 'service:detail-book' room.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+						<p>posted by {{ book.user.username }}</p>
+						<a href="{% url 'service:detail-book' book.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 					</div>
 
 				</div>
