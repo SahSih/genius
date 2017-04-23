@@ -20,4 +20,6 @@ urlpatterns =[
 
 	url(r'^user/$', views.PersonalRoomView.as_view(), name='personal-rooms'),
 	url(r'^user/(?P<pk>[0-9]+)/delete/$', views.RoomDelete.as_view(), name='room-delete'),
+
+	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),
 ]

@@ -14,6 +14,7 @@ class Room(models.Model):
 	price = models.IntegerField(default=0)
 	pub_date = models.DateTimeField(default=timezone.now)
 	room_photo = models.FileField()
+	location = models.CharField(max_length=100, default='place')
 
 	def __str__(self):
 		return self.title
@@ -26,11 +27,23 @@ class Book(models.Model):
 	course = models.CharField(max_length=50)
 	price = models.IntegerField(default=0)
 	book_photo = models.FileField()
+	location = models.CharField(max_length=100, default='place')
 
 	def __str__(self):
 		return self.title
 	def get_absolute_url(self):
 		return reverse('service:detail-book', kwargs={'pk': self.pk})
+
+class Restaurant(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+	name = models.CharField(max_length=100)
+	location = models.CharField(max_length=100)
+	restaurant_photo = models.FileField()
+
+	def __str__(self):
+		return self.name
+	# def get_absolute_url(self):
+	# 	return reverse('service:detail-book', kwargs={'pk': self.pk})
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
