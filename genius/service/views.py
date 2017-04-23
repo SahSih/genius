@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import View, TemplateView, ListView, RedirectView
-from .models import Room, Book
+from .models import Room, Book, Restaurant
 from django.views.generic.edit import FormMixin
 from .forms import RoomSearch, BookSearch, UserForm, LoginForm
 from django.core.urlresolvers import reverse_lazy
@@ -148,7 +148,15 @@ class LoginView(View):
 
 		return render(request, self.template_name, {'form': form})
 
+class RestaurantView(ListView):
+	template_name = 'service/restaurant.html'
+	context_object_name = 'all_restaurants'
+	# form_class = RoomSearch
+	# # all_users = User.objects.all()
 
+	def get_queryset(self):
+		all_restaurants = Restaurant.objects.all()
+		return all_restaurants
 
 
 
