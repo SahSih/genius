@@ -158,5 +158,19 @@ class RestaurantView(ListView):
 		all_restaurants = Restaurant.objects.all()
 		return all_restaurants
 
+# create detail-restaurant.html
+class RestaurantDetailView(generic.DetailView):
+	model = Restaurant
+	template_name = 'service/detail-restaurant.html'
+
+class RestaurantCreate(CreateView):
+	model = Restaurant
+	fields = ['name', 'location', 'restaurant_photo']
+
+	def form_valid(self, form):
+		restaurant = form.save(commit=False)
+		restaurant.user = self.request.user
+		return super(RestaurantCreate, self).form_valid(form)
+
 
 

@@ -22,4 +22,7 @@ urlpatterns =[
 	url(r'^user/(?P<pk>[0-9]+)/delete/$', views.RoomDelete.as_view(), name='room-delete'),
 
 	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),
+	url(r'^restaurant/add/$', views.RestaurantCreate.as_view(), name='restaurant-add'),
+	url(r'^restaurant/(?P<pk>[0-9]+)/$', views.RestaurantDetailView.as_view(), name='detail-restaurant'),
+
 ]
