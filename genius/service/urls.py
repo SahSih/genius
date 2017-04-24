@@ -18,7 +18,7 @@ urlpatterns =[
 	url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 	url(r'^login/$', views.LoginView.as_view(), name='login'),
 
-	url(r'^user/$', views.PersonalRoomView.as_view(), name='personal-rooms'),
+	url(r'^user/$', views.PersonalView.as_view(), name='personal-rooms'),
 	url(r'^user/(?P<pk>[0-9]+)/delete/$', views.RoomDelete.as_view(), name='room-delete'),
 
 	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),

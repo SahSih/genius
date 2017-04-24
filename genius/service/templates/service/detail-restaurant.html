@@ -3,9 +3,9 @@
 {% block title %}Restaurant Detail{% endblock %}
 
 {% block body %}
-	<img src="{{ restaurant.restaurant_photo.url }}" class="img-responsive">
+	<img src="{{ restaurant.photo.url }}" class="img-responsive">
 	<div class="description">
-		<h2>{{ restaurant.name }}</h2>
+		<h2>{{ restaurant.title }}</h2>
 			<ul>
 				<li>{{ restaurant.description }}</li>
 				<li>Location at: {{ restaurant.location }}</li>

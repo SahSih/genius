@@ -8,6 +8,7 @@ from django.views.generic.edit import FormMixin
 from .forms import RoomSearch, BookSearch, UserForm, LoginForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
+from itertools import chain 
 
 # Create your views here.
 
@@ -30,13 +31,16 @@ class RoomView(FormMixin, ListView):
 		return all_rooms
 
 # PersonalRooms shows specific rooms that authenticated user created
-class PersonalRoomView(ListView):
-	template_name = 'service/user-room.html'
-	context_object_name = 'all_rooms'
+class PersonalView(ListView):
+	template_name = 'service/user.html'
+	context_object_name = 'all'
 
 	def get_queryset(self):
-		query = Room.objects.filter(user=self.request.user)
-		return query
+		queryR = Room.objects.filter(user=self.request.user)
+		queryB = Book.objects.filter(user=self.request.user)
+		queryF = Restaurant.objects.filter(user=self.request.user)
+		all = sorted(chain(queryR, queryB, queryF), reverse=True)
+		return all
 
 class DetailView(generic.DetailView):
 	model = Room
@@ -165,7 +169,7 @@ class RestaurantDetailView(generic.DetailView):
 
 class RestaurantCreate(CreateView):
 	model = Restaurant
-	fields = ['name', 'location', 'restaurant_photo']
+	fields = ['name', 'description', 'location', 'restaurant_photo']
 
 	def form_valid(self, form):
 		restaurant = form.save(commit=False)

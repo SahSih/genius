@@ -13,7 +13,7 @@ class Room(models.Model):
 	description = models.CharField(max_length=255)
 	price = models.IntegerField(default=0)
 	pub_date = models.DateTimeField(default=timezone.now)
-	room_photo = models.FileField()
+	photo = models.FileField()
 	location = models.CharField(max_length=100, default='place')
 
 	def __str__(self):
@@ -26,7 +26,7 @@ class Book(models.Model):
 	title = models.CharField(max_length=100)
 	course = models.CharField(max_length=50)
 	price = models.IntegerField(default=0)
-	book_photo = models.FileField()
+	photo = models.FileField()
 	location = models.CharField(max_length=100, default='place')
 
 	def __str__(self):
@@ -36,10 +36,10 @@ class Book(models.Model):
 
 class Restaurant(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-	name = models.CharField(max_length=100)
+	title = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
 	description = models.CharField(max_length=255, default="null")
-	restaurant_photo = models.FileField()
+	photo = models.FileField()
 
 	def __str__(self):
 		return self.name
