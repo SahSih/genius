@@ -20,6 +20,8 @@ class Room(models.Model):
 		return self.title
 	def get_absolute_url(self):
 		return reverse('service:detail', kwargs={'pk': self.pk})
+	def get_type(self):
+		return "Room"
 
 class Book(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -33,6 +35,8 @@ class Book(models.Model):
 		return self.title
 	def get_absolute_url(self):
 		return reverse('service:detail-book', kwargs={'pk': self.pk})
+	def get_type(self):
+		return "Book"
 
 class Restaurant(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -45,6 +49,8 @@ class Restaurant(models.Model):
 		return self.name
 	def get_absolute_url(self):
 		return reverse('service:detail-restaurant', kwargs={'pk': self.pk})
+	def get_type(self):
+		return "Restaurant"
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)

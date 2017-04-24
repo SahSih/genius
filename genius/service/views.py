@@ -48,7 +48,7 @@ class DetailView(generic.DetailView):
 
 class RoomCreate(CreateView):
 	model = Room
-	fields = ['title', 'description', 'price' , 'room_photo']
+	fields = ['title', 'description', 'price' , 'photo']
 
 	def form_valid(self, form):
 		room = form.save(commit=False)
@@ -57,6 +57,12 @@ class RoomCreate(CreateView):
 
 class RoomDelete(DeleteView):
 	model = Room
+	success_url = reverse_lazy('service:personal-rooms')
+class BookDelete(DeleteView):
+	model = Book
+	success_url = reverse_lazy('service:personal-rooms')
+class RestaurantDelete(DeleteView):
+	model = Restaurant
 	success_url = reverse_lazy('service:personal-rooms')
 
 class BookView(FormMixin, ListView):
@@ -74,7 +80,7 @@ class BookView(FormMixin, ListView):
 
 class BookCreate(CreateView):
 	model = Book
-	fields = ['title', 'course', 'price' , 'book_photo']
+	fields = ['title', 'course', 'price' , 'photo']
 
 	def form_valid(self, form):
 		book = form.save(commit=False)
@@ -169,7 +175,7 @@ class RestaurantDetailView(generic.DetailView):
 
 class RestaurantCreate(CreateView):
 	model = Restaurant
-	fields = ['name', 'description', 'location', 'restaurant_photo']
+	fields = ['name', 'description', 'location', 'photo']
 
 	def form_valid(self, form):
 		restaurant = form.save(commit=False)

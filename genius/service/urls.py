@@ -19,7 +19,9 @@ urlpatterns =[
 	url(r'^login/$', views.LoginView.as_view(), name='login'),
 
 	url(r'^user/$', views.PersonalView.as_view(), name='personal-rooms'),
-	url(r'^user/(?P<pk>[0-9]+)/delete/$', views.RoomDelete.as_view(), name='room-delete'),
+	url(r'^user/(?P<pk>[0-9]+)/rdelete/$', views.RoomDelete.as_view(), name='room-delete'),
+	url(r'^user/(?P<pk>[0-9]+)/bdelete/$', views.BookDelete.as_view(), name='book-delete'),
+	url(r'^user/(?P<pk>[0-9]+)/pdelete/$', views.RestaurantDelete.as_view(), name='restaurant-delete'),
 
 	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),
 	url(r'^restaurant/add/$', views.RestaurantCreate.as_view(), name='restaurant-add'),
