@@ -3,9 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import View, TemplateView, ListView, RedirectView
-from .models import Room, Book, Restaurant
+from .models import Room, Book, Restaurant, Tutor
 from django.views.generic.edit import FormMixin
-from .forms import RoomSearch, BookSearch, UserForm, LoginForm
+from .forms import RoomSearch, BookSearch, TutorSearch, UserForm, LoginForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 
@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 class IndexView(generic.TemplateView):
 	template_name = 'service/index.html'
-	
+
 
 class RoomView(FormMixin, ListView):
 	template_name = 'service/room.html'
@@ -172,5 +172,30 @@ class RestaurantCreate(CreateView):
 		restaurant.user = self.request.user
 		return super(RestaurantCreate, self).form_valid(form)
 
+class TutorView(FormMixin, ListView):
+	template_name = 'service/tutor.html'
+	context_object_name = 'all_tutors'
+	form_class = TutorSearch
+	# # all_users = User.objects.all()
 
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query:
+			all_tutors = Tutor.objects.filter(description__icontains=query)
+		else:
+			all_tutors = Tutor.objects.all()
+		return all_tutors
 
+# create detail-tutor.html
+class TutorDetailView(generic.DetailView):
+	model = Tutor
+	template_name = 'service/detail-tutor.html'
+
+class TutorCreate(CreateView):
+	model = Tutor
+	fields = ['name', 'location', 'description', 'tutor_photo']
+
+	def form_valid(self, form):
+		tutor = form.save(commit=False)
+		tutor.user = self.request.user
+		return super(TutorCreate, self).form_valid(form)

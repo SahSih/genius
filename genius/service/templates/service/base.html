@@ -6,7 +6,7 @@
 	{% load staticfiles %}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'service/style.css' %}"/>
-	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
@@ -45,6 +45,11 @@
 						<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp Restaurants
 					</a>
 				</li>
+				<li class="">
+					<a href="{% url 'service:tutor' %}">
+						<span class="glyphicon glyphicon-education" aria-hidden="true"></span>&nbsp Tutoring
+					</a>
+				</li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -79,7 +84,7 @@
 					</a>
 				</li>
 				{% endif %}
-				
+
 			</ul>
 
 		</div>

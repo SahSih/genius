@@ -46,6 +46,18 @@ class Restaurant(models.Model):
 	def get_absolute_url(self):
 		return reverse('service:detail-restaurant', kwargs={'pk': self.pk})
 
+class Tutor(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+	name = models.CharField(max_length=100)
+	location = models.CharField(max_length=100)
+	description = models.CharField(max_length=255)
+	tutor_photo = models.FileField()
+
+	def __str__(self):
+		return self.name
+	def get_absolute_url(self):
+		return reverse('service:detail-tutor', kwargs={'pk': self.pk})
+
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio = models.TextField(max_length=500, blank=True)

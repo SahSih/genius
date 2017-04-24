@@ -7,8 +7,11 @@ class RoomSearch(forms.Form):
 class BookSearch(forms.Form):
 	title = forms.CharField(required=False)
 
+class TutorSearch(forms.Form):
+	description = forms.CharField(required=False)
+
 class UserForm(forms.ModelForm):
-	# encode password 
+	# encode password
 	password = forms.CharField(widget=forms.PasswordInput)
 
 	# infomation about my class
@@ -22,4 +25,3 @@ class LoginForm(forms.ModelForm):
 
 		model = User
 		fields = ['username', 'password']
-
