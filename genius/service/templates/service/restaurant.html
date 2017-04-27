@@ -2,8 +2,18 @@
 {% block title %}Restaurant{% endblock %}
 {% block rooms_active %}active{% endblock %}
 
+{% block addbar %}
+{% if request.user.is_authenticated %}
+<li class="">
+	<a href="{% url 'service:room-add' %}">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Restaurant
+	</a>
+</li>
+{% endif %}
+{% endblock %}
+
 {% block body %}
 
-<h1> This is the list of all restaurant</h1>
+<h1 style="color:white">Restaurants</h1>
 
 {% endblock %}

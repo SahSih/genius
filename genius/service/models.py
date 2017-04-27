@@ -38,12 +38,13 @@ class Restaurant(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
+	description = models.CharField(max_length=255, default="null")
 	restaurant_photo = models.FileField()
 
 	def __str__(self):
 		return self.name
-	# def get_absolute_url(self):
-	# 	return reverse('service:detail-book', kwargs={'pk': self.pk})
+	def get_absolute_url(self):
+		return reverse('service:detail-restaurant', kwargs={'pk': self.pk})
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
