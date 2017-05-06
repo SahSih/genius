@@ -6,8 +6,9 @@
 	{% load staticfiles %}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'service/style.css' %}"/>
-	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
@@ -29,32 +30,48 @@
 		<div class="navbar-collapse collapse" id="topNavBar">
 
 			<ul class="nav navbar-nav">
-				<li class="">
-					<a href="{% url 'service:room' %}">
-						<span class="glyphicon glyphicon-bed" aria-hidden="true"></span>&nbsp Rooms
+
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<span class="caret"></span>&nbsp Looking for...
 					</a>
-				</li>
-				<li class="">
-					<a href="{% url 'service:book' %}">
-						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp Textbooks
-					</a>
+					<ul class="dropdown-menu">
+						<li class="">
+							<a href="{% url 'service:room' %}">
+								<span class="glyphicon glyphicon-bed" aria-hidden="true"></span>&nbsp Rooms
+							</a>
+						</li>
+						<li class="">
+							<a href="{% url 'service:book' %}">
+								<span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp Textbooks
+							</a>
+						</li>
+
+						<li class="">
+							<a href="{% url 'service:restaurant' %}">
+								<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp Restaurants
+							</a>
+						</li>
+						<li class="">
+							<a href="{% url 'service:tutor' %}">
+								<span class="glyphicon glyphicon-education" aria-hidden="true"></span>&nbsp Tutoring
+							</a>
+						</li>
+					</ul>
 				</li>
 
 				<li class="">
-					<a href="{% url 'service:restaurant' %}">
-						<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp Restaurants
+					<a href="{% url 'service:result' %}">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp Searching
 					</a>
 				</li>
 			</ul>
+				
+			<!-- </ul> -->
 
 			<ul class="nav navbar-nav navbar-right">
 				{% block addbar %}
 				{% endblock %}
-				<!-- <li class="">
-					<a href="#">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Room
-					</a>
-				</li> -->
 				{% if request.user.is_authenticated %}
 				<!-- Link to user's profile -->
 				<li class="">
@@ -79,9 +96,8 @@
 					</a>
 				</li>
 				{% endif %}
-				
-			</ul>
 
+			</ul>
 		</div>
 
 	</div>

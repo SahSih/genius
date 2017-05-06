@@ -3,13 +3,28 @@
 {% block title %}Room Detail{% endblock %}
 
 {% block body %}
-	<img src="{{ room.photo.url }}" class="img-responsive">
+	<!-- <img src="{{ room.photo.url }}" class="img-responsive">
 	<div class="description">
 		<h2 style="color:white">{{ room.title }}</h2>
 			<ul>
 				<li>{{ room.description }}</li>
 				<li> Price: ${{ room.price }}</li>
 			</ul>
+	</div> -->
+
+	<div class="detailroom-container container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<img src="{{ room.photo.url }}" class="img-responsive center-block">
+				</div>
+				<div class="row">
+					<h2 class="text-center">{{ room.title }}</h2>
+					<p class="text-center">{{ room.description }}</p>
+					<p class="text-center"> Price: ${{ room.price }}</p>
+				</div>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

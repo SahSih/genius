@@ -1,5 +1,5 @@
 body{
-	background: white url("images/background2.jpg");
+	background: white url("images/pink.jpg");
 	font-family: 'PT Sans', sans-serif;
 	font-size: 17px;
 }
@@ -8,4 +8,6 @@ ul{
 	color: white;
 }
 
-
+.navbar {
+    margin-top:0;
+  }

@@ -13,7 +13,24 @@
 {% endblock %}
 
 {% block body %}
-
-<h1 style="color:white">Restaurants</h1>
+	<div class="restaurants-container container">
+		<div class="row">
+			<h1>Food and Beverage</h1>
+			<div class="list-group">
+				{% for restaurant in all_restaurants %}
+					<a href="{% url 'service:detail-restaurant' restaurant.id %}" class="list-group-item" style="color:black;">
+						<div class="media-left">
+							<img src="{{ restaurant.photo.url }}" class="img.responsive">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">{{ restaurant.title }}</h3>
+							<small>{{ restaurant.location }}</small>
+							<p>{{ restaurant.description }}</p>
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

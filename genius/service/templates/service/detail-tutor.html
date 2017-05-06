@@ -1,0 +1,15 @@
+{% extends 'service/base.html' %}
+{% block restaurants_active %}active{% endblock %}
+{% block title %}Restaurant Detail{% endblock %}
+
+{% block body %}
+	<img src="{{ tutor.tutor_photo.url }}" class="img-responsive">
+	<div class="description">
+		<h2>{{ tutor.name }}</h2>
+			<ul>
+				<li>{{ tutor.description }}</li>
+				<li>Location at: {{ tutor.location }}</li>
+			</ul>
+	</div>
+
+{% endblock %}

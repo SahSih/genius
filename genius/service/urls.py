@@ -6,6 +6,9 @@ app_name = "service"
 urlpatterns =[
 	# /service/
 	url(r'^$', views.IndexView.as_view(), name='index'),
+
+	url(r'^result/$', views.SearchResultView.as_view(), name='result'),
+
 	url(r'^room/$',views.RoomView.as_view(), name='room'),
 	url(r'^room/(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
 	url(r'^room/add/$', views.RoomCreate.as_view(), name='room-add'),
@@ -22,9 +25,13 @@ urlpatterns =[
 	url(r'^user/(?P<pk>[0-9]+)/rdelete/$', views.RoomDelete.as_view(), name='room-delete'),
 	url(r'^user/(?P<pk>[0-9]+)/bdelete/$', views.BookDelete.as_view(), name='book-delete'),
 	url(r'^user/(?P<pk>[0-9]+)/pdelete/$', views.RestaurantDelete.as_view(), name='restaurant-delete'),
+	url(r'^user/(?P<pk>[0-9]+)/tdelete/$', views.TutorDelete.as_view(), name='tutor-delete'),
 
 	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),
 	url(r'^restaurant/add/$', views.RestaurantCreate.as_view(), name='restaurant-add'),
 	url(r'^restaurant/(?P<pk>[0-9]+)/$', views.RestaurantDetailView.as_view(), name='detail-restaurant'),
 
+	url(r'^tutor/$',views.TutorView.as_view(), name='tutor'),
+	url(r'^tutor/add/$', views.TutorCreate.as_view(), name='tutor-add'),
+	url(r'^tutor/(?P<pk>[0-9]+)/$', views.TutorDetailView.as_view(), name='detail-tutor'),
 ]

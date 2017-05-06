@@ -1,0 +1,43 @@
+{% extends 'service/base.html' %}
+{% block title %}Tutor{% endblock %}
+{% block rooms_active %}active{% endblock %}
+
+{% block addbar %}
+{% if request.user.is_authenticated %}
+<li class="">
+	<a href="{% url 'service:tutor-add' %}">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Tutor
+	</a>
+</li>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="tutors-container container">
+		<div class="row">
+		<form class="navbar-form navbar-left" role="search" method="get" action= "#" enctype="multipart/form-data">
+			<div class="form-group">
+				<input type="text" class="form-control" name="q" value="">
+			</div>
+			<button type="submit" class="btn btn-default">Search Tutor</button>
+		</form>
+		</div>
+		<h1>Available Tutors</h1>
+		<div class="list-group">
+			{% for tutor in all_tutors %}
+				<a href="{% url 'service:detail-tutor' tutor.id %}" class="list-group-item" style="color:black;">
+					<div class="media-left">
+						<img src="{{ tutor.tutor_photo.url }}" class="img.responsive">
+					</div>
+					<div class="media-body">
+						<h3 class="media-heading">{{ tutor.title }}</h3>
+						<small>posted by {{ tutor.user.username }}</small>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -3,18 +3,43 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import View, TemplateView, ListView, RedirectView
-from .models import Room, Book, Restaurant
+from .models import Room, Book, Restaurant, Tutor
 from django.views.generic.edit import FormMixin
-from .forms import RoomSearch, BookSearch, UserForm, LoginForm
+from .forms import RoomSearch, BookSearch, TutorSearch, UserForm, LoginForm, AllSearch
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from itertools import chain 
 
 # Create your views here.
+# Original: IndexView(FormMixin, generic.TemplateView)
 
 class IndexView(generic.TemplateView):
 	template_name = 'service/index.html'
-	
+
+# TODO: write result for q
+class SearchResultView(FormMixin, ListView):
+	template_name = 'service/result.html'
+	context_object_name = 'all'
+	form_class = AllSearch 
+
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query:
+			room_by_title = Room.objects.filter(title__icontains=query)
+			room_by_description = Room.objects.filter(description__icontains=query)
+			room_by_location = Room.objects.filter(location__icontains=query)
+			book_by_title = Book.objects.filter(title__icontains=query)
+			book_by_course = Book.objects.filter(course__icontains=query)
+			book_by_location = Book.objects.filter(location__icontains=query)
+			restaurant_by_title = Restaurant.objects.filter(title__icontains=query)
+			restaurant_by_description = Restaurant.objects.filter(description__icontains=query)
+			restaurant_by_location = Restaurant.objects.filter(location__icontains=query)
+			tutor_by_title = Tutor.objects.filter(title__icontains=query)
+			tutor_by_description = Tutor.objects.filter(description__icontains=query)
+			tutor_by_location =  Tutor.objects.filter(location__icontains=query)
+			global all
+			all = sorted(chain(room_by_title, room_by_description, room_by_location, book_by_title, book_by_course, book_by_location, restaurant_by_title, restaurant_by_description, restaurant_by_location, tutor_by_title, tutor_by_description, tutor_by_location), reverse=True)
+		return all
 
 class RoomView(FormMixin, ListView):
 	template_name = 'service/room.html'
@@ -25,7 +50,7 @@ class RoomView(FormMixin, ListView):
 	def get_queryset(self):
 		query = self.request.GET.get('q')
 		if query:
-			all_rooms = Room.objects.filter(description__icontains=query)
+			all_rooms = Room.objects.filter(title__icontains=query)
 		else:
 			all_rooms = Room.objects.all()
 		return all_rooms
@@ -39,7 +64,8 @@ class PersonalView(ListView):
 		queryR = Room.objects.filter(user=self.request.user)
 		queryB = Book.objects.filter(user=self.request.user)
 		queryF = Restaurant.objects.filter(user=self.request.user)
-		all = sorted(chain(queryR, queryB, queryF), reverse=True)
+		queryT = Tutor.objects.filter(user=self.request.user)
+		all = sorted(chain(queryR, queryB, queryF, queryT), reverse=True)
 		return all
 
 class DetailView(generic.DetailView):
@@ -64,6 +90,9 @@ class BookDelete(DeleteView):
 class RestaurantDelete(DeleteView):
 	model = Restaurant
 	success_url = reverse_lazy('service:personal-rooms')
+class TutorDelete(DeleteView):
+	model = Tutor
+	success_url = reverse_lazy('service:personal-rooms')
 
 class BookView(FormMixin, ListView):
 	template_name = 'service/book.html'
@@ -73,7 +102,7 @@ class BookView(FormMixin, ListView):
 	def get_queryset(self):
 		query = self.request.GET.get('q')
 		if query:
-			all_books = Book.objects.filter(title__icontains=query)
+			all_books = Book.objects.filter(course__icontains=query)
 		else:
 			all_books = Book.objects.all()
 		return all_books
@@ -175,12 +204,37 @@ class RestaurantDetailView(generic.DetailView):
 
 class RestaurantCreate(CreateView):
 	model = Restaurant
-	fields = ['name', 'description', 'location', 'photo']
+	fields = ['title', 'description', 'location', 'photo']
 
 	def form_valid(self, form):
 		restaurant = form.save(commit=False)
 		restaurant.user = self.request.user
 		return super(RestaurantCreate, self).form_valid(form)
 
+class TutorView(FormMixin, ListView):
+	template_name = 'service/tutor.html'
+	context_object_name = 'all_tutors'
+	form_class = TutorSearch
+	# # all_users = User.objects.all()
 
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query:
+			all_tutors = Tutor.objects.filter(description__icontains=query)
+		else:
+			all_tutors = Tutor.objects.all()
+		return all_tutors
 
+# create detail-tutor.html
+class TutorDetailView(generic.DetailView):
+	model = Tutor
+	template_name = 'service/detail-tutor.html'
+
+class TutorCreate(CreateView):
+	model = Tutor
+	fields = ['title', 'location', 'description', 'tutor_photo']
+
+	def form_valid(self, form):
+		tutor = form.save(commit=False)
+		tutor.user = self.request.user
+		return super(TutorCreate, self).form_valid(form)
