@@ -3,13 +3,21 @@
 {% block title %}Book Detail{% endblock %}
 
 {% block body %}
-	<img src="{{ book.photo.url }}" class="img-responsive">
-	<div class="description">
-		<h2>{{ book.title }}</h2>
-			<ul>
-				<li>{{ book.course }}</li>
-				<li> Price: ${{ book.price }}</li>
-			</ul>
+
+	<div class="detailbook-container container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<img src="{{ book.photo.url }}" class="img-responsive center-block">
+				</div>
+				<div class="row">
+					<h2 class="text-center">{{ book.title }}</h2>
+					<p class="text-center">{{ book.course }}</p>
+					<p class="text-center"> Price: ${{ book.price }}</p>
+					<p class="text-center">{{ book.description }}</p>
+				</div>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

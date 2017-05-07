@@ -3,12 +3,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import View, TemplateView, ListView, RedirectView
-from .models import Room, Book, Restaurant, Tutor
+from .models import Room, Book, Restaurant, Tutor, RestaurantReview
 from django.views.generic.edit import FormMixin
 from .forms import RoomSearch, BookSearch, TutorSearch, UserForm, LoginForm, AllSearch
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from itertools import chain 
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 # Create your views here.
 # Original: IndexView(FormMixin, generic.TemplateView)
@@ -202,6 +205,15 @@ class RestaurantDetailView(generic.DetailView):
 	model = Restaurant
 	template_name = 'service/detail-restaurant.html'
 
+	# def get_queryset(self):
+	# 	all_reviews = Review.objects.all()
+	# 	return all_reviews
+	def get_context_data(self, **kwargs):
+		context = super(RestaurantDetailView, self).get_context_data(**kwargs)
+		context['description'] = RestaurantReview.description
+		return context
+
+
 class RestaurantCreate(CreateView):
 	model = Restaurant
 	fields = ['title', 'description', 'location', 'photo']
@@ -238,3 +250,9 @@ class TutorCreate(CreateView):
 		tutor = form.save(commit=False)
 		tutor.user = self.request.user
 		return super(TutorCreate, self).form_valid(form)
+
+def review(request, pk):
+  restaurant = get_object_or_404(Restaurant, pk=pk)
+  review = RestaurantReview(user = request.user, title = request.POST["title"], description = request.POST["description"], restaurant = restaurant)
+  review.save()
+  return HttpResponseRedirect(reverse('service:detail-restaurant', args=(restaurant.id,)))

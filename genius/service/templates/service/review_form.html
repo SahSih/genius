@@ -1,5 +1,5 @@
 {% extends 'service/base.html' %}
-{% block title %}Log In{% endblock %}
+{% block title %}Write a Review{% endblock %}
 
 {% block body %}
 <div class="container-fluid">
@@ -8,7 +8,8 @@
 	<div class="col-sm-12 col-md-7">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h3>Log In</h3>
+				<h3>Write review for this restaurant</h3>
+
 			<!-- Create a generic form template: form-template.html -->
 				<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
@@ -22,7 +23,7 @@
 
 			</div>
 		</div>
-	</div>
+	</div>/
 
 	</div>
 </div>

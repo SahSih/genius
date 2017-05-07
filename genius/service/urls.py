@@ -30,8 +30,12 @@ urlpatterns =[
 	url(r'^restaurant/$',views.RestaurantView.as_view(), name='restaurant'),
 	url(r'^restaurant/add/$', views.RestaurantCreate.as_view(), name='restaurant-add'),
 	url(r'^restaurant/(?P<pk>[0-9]+)/$', views.RestaurantDetailView.as_view(), name='detail-restaurant'),
+	url(r'^restaurant/(?P<pk>[0-9]+)/reviews/add/$', views.review, name='review-add'),
+
 
 	url(r'^tutor/$',views.TutorView.as_view(), name='tutor'),
 	url(r'^tutor/add/$', views.TutorCreate.as_view(), name='tutor-add'),
 	url(r'^tutor/(?P<pk>[0-9]+)/$', views.TutorDetailView.as_view(), name='detail-tutor'),
+
+
 ]

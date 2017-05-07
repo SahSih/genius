@@ -3,13 +3,56 @@
 {% block title %}Restaurant Detail{% endblock %}
 
 {% block body %}
-	<img src="{{ restaurant.photo.url }}" class="img-responsive">
-	<div class="description">
-		<h2>{{ restaurant.title }}</h2>
-			<ul>
-				<li>{{ restaurant.description }}</li>
-				<li>Location at: {{ restaurant.location }}</li>
-			</ul>
+	
+	<div class="detailrest-container container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<img src="{{ restaurant.photo.url }}" class="img-responsive center-block">
+				</div>
+				<div class="row">
+					<h2 class="text-center">{{ restaurant.title }}</h2>
+					<p class="text-center">{{ retaurant.location }}</p>
+					<p class="text-center">{{ restaurant.description }}</p>
+				</div>
+			</div>
+		</div>
+
+		{% if request.user.is_authenticated %}
+		<div class="review">
+			<h3>Add Review</h3>
+			<form action="{% url 'service:review-add' restaurant.id %}" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="title">Title:</label>
+  					<textarea class="form-control" name = "title" rows="1" id="title"></textarea>
+				</div>
+  				<div class="form-group">
+					<label for="comment">Comment:</label>
+  					<textarea class="form-control" name = "description" rows="5" id="description"></textarea>
+				</div>
+  			<input type="submit" value="Submit" />
+			</form>
+		{% endif %}
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="container">
+					<h2>Reviews</h2>
+  						{% for review in restaurant.restaurantreview_set.all %}
+      					<p>{{ review.title }}</p>
+      					<p>{{ review.description }}</p>
+      					<p>Created by {{ review.user }} on {{ review.date }}</p>
+      					<p>--------------------------------------------------------------------------------------------</p>
+  						{% endfor %}
+				</div>
+			</div>
+		</div>
+
+			
+
+		</div>
+
 	</div>
 
 {% endblock %}

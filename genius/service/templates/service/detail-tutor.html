@@ -3,13 +3,29 @@
 {% block title %}Restaurant Detail{% endblock %}
 
 {% block body %}
-	<img src="{{ tutor.tutor_photo.url }}" class="img-responsive">
+
+	<div class="detailtutor-container container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<img src="{{ tutor.tutor_photo.url }}" class="img-responsive center-block">
+				</div>
+				<div class="row">
+					<h2 class="text-center">{{ tutor.title }}</h2>
+					<p class="text-center">{{ tutor.description }}</p>
+					<p class="text-center">I am located at {{ tutor.location }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 	<img src="{{ tutor.tutor_photo.url }}" class="img-responsive">
 	<div class="description">
 		<h2>{{ tutor.name }}</h2>
 			<ul>
 				<li>{{ tutor.description }}</li>
 				<li>Location at: {{ tutor.location }}</li>
 			</ul>
-	</div>
+	</div> -->
 
 {% endblock %}
